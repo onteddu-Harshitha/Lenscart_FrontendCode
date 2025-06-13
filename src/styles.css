@@ -1,0 +1,201 @@
+/* You can add global styles to this file, and also import other style files */
+/* @import 'bootstrap/dist/css/bootstrap.min.css';
+body {
+    padding-top: 80px; 
+    margin: 0;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+  } */
+/* Root variables for consistent colors */
+/* ==== Base colors and fonts ==== */
+:root {
+  --primary: #2563eb;         /* Blue */
+  --primary-dark: #1e40af;    /* Darker blue */
+  --danger: #dc2626;          /* Red */
+  --gray-light: #f9fafb;      /* Background */
+  --gray-medium: #64748b;     /* Text secondary */
+  --gray-dark: #1f2937;       /* Text main */
+  --white: #ffffff;
+  --border: #e2e8f0;
+  --input-bg: #f3f4f6;
+  --shadow-light: rgba(0,0,0,0.05);
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ==== Body and container ==== */
+body {
+  font-family: var(--font-family);
+  background-color: var(--gray-light);
+  color: var(--gray-dark);
+  margin: 0;
+  padding: 0;
+}
+
+.lenscart-logo {
+  font-size: 2rem; /* Bigger text */
+  font-weight: 800;
+  font-family: 'Segoe UI', sans-serif;
+  letter-spacing: -1px;
+  color: #333;
+  display: flex;
+  align-items: center;
+}
+
+.lenscart-logo span {
+  color: #0d6efd; /* Bootstrap Primary Blue */
+}
+.container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* ==== Headings ==== */
+h2 {
+  text-align: center;
+  color: var(--primary);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+}
+
+/* ==== Form ==== */
+form {
+  background: var(--white);
+  padding: 1.5rem 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px var(--shadow-light);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  background-color: var(--input-bg);
+  font-size: 1rem;
+  color: var(--gray-dark);
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+  border-color: var(--primary);
+  background-color: var(--white);
+  outline: none;
+}
+
+/* ==== Buttons ==== */
+button {
+  cursor: pointer;
+  padding: 0.65rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  box-shadow: 0 2px 5px var(--shadow-light);
+  transition: background-color 0.3s ease;
+}
+
+.btn-blue {
+  background-color: var(--primary);
+  color: var(--white);
+  justify-self: end;
+}
+
+.btn-blue:hover {
+  background-color: var(--primary-dark);
+}
+
+.text-blue-600 {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0;
+}
+
+.text-blue-600:hover {
+  text-decoration: underline;
+  color: var(--primary-dark);
+}
+
+.navbar > .container {
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.text-red-600 {
+  background: none;
+  border: none;
+  color: var(--danger);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0;
+}
+
+.text-red-600:hover {
+  text-decoration: underline;
+}
+
+/* ==== Table ==== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--white);
+  box-shadow: 0 2px 8px var(--shadow-light);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+thead tr {
+  background: #f1f5f9;
+}
+
+th,
+td {
+  padding: 0.9rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.95rem;
+  color: var(--gray-dark);
+}
+
+th {
+  font-weight: 700;
+}
+
+tbody tr:hover {
+  background-color: #e0e7ff; /* Light blue on hover */
+  transition: background-color 0.3s ease;
+}
+
+img {
+  border-radius: 6px;
+  object-fit: cover;
+  width: 48px;
+  height: 48px;
+}
+
+/* ==== Responsive ==== */
+@media (max-width: 600px) {
+  form {
+    grid-template-columns: 1fr !important;
+  }
+
+  th,
+  td {
+    font-size: 0.85rem;
+  }
+
+  button {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+}

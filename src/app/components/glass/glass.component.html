@@ -1,0 +1,48 @@
+<div class="container my-4">
+    <div class="row">
+  
+      <!-- Filter Sidebar -->
+      <div class="col-md-3">
+        <div class="card p-3 shadow-sm">
+          <h5 class="fw-bold">Filter by</h5>
+  
+          <label class="form-label mt-3">Brand</label>
+          <select class="form-select" [(ngModel)]="selectedBrand" (change)="applyFilters()">
+            <option value="">All</option>
+            <option *ngFor="let brand of brands" [value]="brand">{{ brand }}</option>
+          </select>
+  
+          <label class="form-label mt-3">Type</label>
+          <select class="form-select" [(ngModel)]="selectedType" (change)="applyFilters()">
+            <option value="">All</option>
+            <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+          </select>
+  
+          <label class="form-label mt-3">Price</label>
+          <select class="form-select" [(ngModel)]="selectedPriceRange" (change)="applyFilters()">
+            <option value="">All</option>
+            <option value="below1000">Below ₹1000</option>
+            <option value="1000to2000">₹1000 – ₹2000</option>
+            <option value="above2000">Above ₹2000</option>
+          </select>
+        </div>
+      </div>
+  
+      <!-- Glass Cards -->
+      <div class="col-md-9">
+        <div class="frame-container">
+          <div class="frame-card" *ngFor="let glass of filteredGlasses">
+            <img [src]="glass.glassImage || 'assets/frame-placeholder.jpg'" alt="Glass Image" class="frame-img">
+            <h3>{{ glass.glassName }}</h3>
+            <p><strong>Brand:</strong> {{ glass.brand }}</p>
+            <p><strong>Type:</strong> {{ glass.type }}</p>
+            <p><strong>Power Range:</strong> {{ glass.powerRange }}</p>
+            <p><strong>Price:</strong> ₹{{ glass.price }}</p>
+            <button (click)="addToCart(glass)" class="add-cart-btn">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+  

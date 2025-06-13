@@ -1,0 +1,52 @@
+<div class="container">
+  <h2>Glasses Management</h2>
+
+  <!-- Glass Form -->
+  <form (ngSubmit)="addGlass()" #glassForm="ngForm">
+    <input type="text" placeholder="Glass ID" [(ngModel)]="newGlass.glassId" name="glassId" required />
+    <input type="text" placeholder="Name" [(ngModel)]="newGlass.glassName" name="glassName" required />
+    <input type="text" placeholder="Brand" [(ngModel)]="newGlass.brand" name="brand" required />
+    <input type="number" placeholder="Price" [(ngModel)]="newGlass.price" name="price" required />
+    <input type="text" placeholder="Type" [(ngModel)]="newGlass.type" name="type" required />
+    <input type="number" placeholder="Power Range" [(ngModel)]="newGlass.powerRange" name="powerRange" required />
+    <input type="text" placeholder="Image URL" [(ngModel)]="newGlass.glassImage" name="glassImage" required />
+    <input type="number" placeholder="Quantity" [(ngModel)]="newGlass.quantity" name="quantity" required />
+    <button type="submit">Add / Update Glass</button>
+    <button type="button" (click)="resetForm()">Clear</button>
+  </form>
+
+  <hr />
+
+  <!-- Glasses Table -->
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Brand</th>
+        <th>Type</th>
+        <th>Power</th>
+        <th>Price</th>
+        <th>Qty</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let glass of glasses">
+        <td>{{ glass.glassId }}</td>
+        <td><img [src]="glass.glassImage" alt="Glass Image" width="60" /></td>
+        <td>{{ glass.glassName }}</td>
+        <td>{{ glass.brand }}</td>
+        <td>{{ glass.type }}</td>
+        <td>{{ glass.powerRange }}</td>
+        <td>{{ glass.price }}</td>
+        <td>{{ glass.quantity }}</td>
+        <td>
+          <button (click)="editGlass(glass)">Edit</button>
+          <button (click)="deleteGlass(glass.glassId)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

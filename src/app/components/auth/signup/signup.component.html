@@ -1,0 +1,71 @@
+<div class="signup-container">
+  <h2>Customer Signup</h2>
+
+  <form (ngSubmit)="onSignup()" #signupForm="ngForm" novalidate>
+
+    <div class="form-group">
+      <input
+        type="text"
+        name="name"
+        [(ngModel)]="name"
+        placeholder="Name"
+        required
+        #nameInput="ngModel"
+      />
+      <div *ngIf="nameInput.invalid && nameInput.touched" class="error-msg">
+        Name is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input
+        type="email"
+        name="email"
+        [(ngModel)]="email"
+        placeholder="Email"
+        required
+        email
+        #emailInput="ngModel"
+      />
+      <div *ngIf="emailInput.invalid && emailInput.touched" class="error-msg">
+        Enter a valid email address.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input
+        type="password"
+        name="password"
+        [(ngModel)]="password"
+        placeholder="Password (min 6 characters)"
+        required
+        minlength="6"
+        #passwordInput="ngModel"
+      />
+      <div *ngIf="passwordInput.invalid && passwordInput.touched" class="error-msg">
+        Password must be at least 6 characters.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input
+        type="text"
+        name="phoneNumber"
+        [(ngModel)]="phoneNumber"
+        placeholder="Phone Number"
+        pattern="^[6-9]\\d{9}$"
+        required
+        #phoneInput="ngModel"
+      />
+      <div *ngIf="phoneInput.invalid && phoneInput.touched" class="error-msg">
+        Enter a valid 10-digit phone number.
+      </div>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-msg server-error">
+      {{ errorMessage }}
+    </div>
+
+    <button type="submit" [disabled]="signupForm.invalid">Sign Up</button>
+  </form>
+</div>

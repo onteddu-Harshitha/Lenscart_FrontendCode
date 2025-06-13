@@ -1,0 +1,50 @@
+<div class="container">
+  <h2>Sunglasses Management</h2>
+
+  <form (ngSubmit)="addSunglass()" #sunglassForm="ngForm">
+    <input type="text" placeholder="Sunglass ID" [(ngModel)]="newSunglass.sunGlassId" name="sunGlassId" required />
+    <input type="text" placeholder="Sunglass Name" [(ngModel)]="newSunglass.sunGlassName" name="sunGlassName" required />
+    <input type="text" placeholder="Brand" [(ngModel)]="newSunglass.brand" name="brand" required />
+    <input type="number" placeholder="Price" [(ngModel)]="newSunglass.price" name="price" required />
+    <input type="text" placeholder="Frame Color" [(ngModel)]="newSunglass.frameColor" name="frameColor" required />
+    <input type="text" placeholder="Frame Shape" [(ngModel)]="newSunglass.frameShape" name="frameShape" required />
+    <input type="text" placeholder="Glass Color" [(ngModel)]="newSunglass.glassColor" name="glassColor" required />
+    <input type="number" placeholder="Quantity" [(ngModel)]="newSunglass.quantity" name="quantity" required />
+    <button type="submit">Add / Update Sunglass</button>
+    <button type="button" (click)="resetForm()">Clear</button>
+  </form>
+
+  <hr />
+
+  <table>
+    <thead>
+      <tr>
+        <th>Sunglass ID</th>
+        <th>Name</th>
+        <th>Brand</th>
+        <th>Price</th>
+        <th>Frame Color</th>
+        <th>Frame Shape</th>
+        <th>Glass Color</th>
+        <th>Quantity</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let sunglass of sunglasses">
+        <td>{{ sunglass.sunGlassId }}</td>
+        <td>{{ sunglass.sunGlassName }}</td>
+        <td>{{ sunglass.brand }}</td>
+        <td>{{ sunglass.price }}</td>
+        <td>{{ sunglass.frameColor }}</td>
+        <td>{{ sunglass.frameShape }}</td>
+        <td>{{ sunglass.glassColor }}</td>
+        <td>{{ sunglass.quantity }}</td>
+        <td>
+          <button (click)="editSunglass(sunglass)">Edit</button>
+          <button (click)="deleteSunglass(sunglass.sunGlassId)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

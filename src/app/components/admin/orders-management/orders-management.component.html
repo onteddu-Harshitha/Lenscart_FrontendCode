@@ -1,0 +1,39 @@
+<div class="order-management-container">
+    <h2>Order Management</h2>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+        <select [(ngModel)]="statusFilter" (ngModelChange)="applyFilters()">
+            <option value="">ALL STATUS</option>
+            <option>PROCESSING</option>
+            <option>SHIPPED</option>
+            <option>DELIVERED</option>
+        </select>
+    </div>
+
+    <!-- Table for Order List -->
+    <table class="order-table">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>CustomerName</th>
+                <th>Total Amount</th>
+                <th>Status</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let order of filteredOrders" (click)="viewOrder(order.orderId)">
+                <td>{{ order.orderId }}</td>
+                <td>{{ getCustomerName(order.customerId) }}</td>
+                <td>₹{{ order.totalAmount | number }}</td>
+                <td>
+                    <span class="status" [ngClass]="order.orderStatus.toLowerCase()">
+                        {{ order.orderStatus }}
+                    </span>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>

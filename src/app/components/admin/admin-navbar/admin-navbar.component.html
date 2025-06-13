@@ -1,0 +1,44 @@
+<!-- Sidebar container -->
+<div class="sidebar" [class.closed]="!isVisible">
+  <!-- Toggle Button INSIDE sidebar but on the edge -->
+  <!-- <button class="toggle-btn" (click)="toggleNavbar()">☰</button> -->
+
+  <button class="toggle-btn" (click)="toggleNavbar()">
+    {{ isVisible ? '✕' : '☰' }}
+    
+  </button>
+
+
+  <div class="logo">
+    <i class="fas fa-cogs"></i> Admin Panel
+  </div>
+
+  <nav>
+    <a routerLink="/admin-dashboard" routerLinkActive="active">
+      <i class="fas fa-tachometer-alt"></i> Dashboard
+    </a>
+    <a routerLink="/admin/frames-management" routerLinkActive="active">
+      <i class="fas fa-box"></i> Frames
+    </a>
+    <a routerLink="/admin/glasses-management" routerLinkActive="active">
+      <i class="fas fa-box"></i> Glasses
+    </a>
+    <a routerLink="/admin/lenses-management" routerLinkActive="active">
+      <i class="fas fa-box"></i> Lens
+    </a>
+    <a routerLink="/admin/sunglasses-management" routerLinkActive="active">
+      <i class="fas fa-box"></i> Sunglasses
+    </a>
+    <a routerLink="/admin/orders-management" routerLinkActive="active">
+      <i class="fas fa-shopping-cart"></i> Orders
+    </a>
+    <a routerLink="/login" routerLinkActive="active">
+      <i class="fas fa-sign-out-alt"></i> Logout
+    </a>
+  </nav>
+</div>
+
+<!-- Main content -->
+<div class="dashboard-container" [class.full-width]="!isVisible">
+  <!-- Your dashboard content here -->
+</div>

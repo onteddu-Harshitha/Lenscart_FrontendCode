@@ -1,0 +1,48 @@
+<div class="container my-4">
+    <div class="row">
+      <!-- Sidebar Filters -->
+      <div class="col-md-3">
+        <div class="card p-3 shadow-sm">
+          <h5 class="fw-bold">Filter by</h5>
+  
+          <label class="form-label mt-3">Brand</label>
+          <select class="form-select" [(ngModel)]="selectedBrand" (change)="applyFilters()">
+            <option value="">All</option>
+            <option *ngFor="let brand of brands" [value]="brand">{{ brand }}</option>
+          </select>
+  
+          <label class="form-label mt-3">Frame Color</label>
+          <select class="form-select" [(ngModel)]="selectedFrameColor" (change)="applyFilters()">
+            <option value="">All</option>
+            <option *ngFor="let color of frameColors" [value]="color">{{ color }}</option>
+          </select>
+  
+          <label class="form-label mt-3">Price</label>
+          <select class="form-select" [(ngModel)]="selectedPriceRange" (change)="applyFilters()">
+            <option value="">All</option>
+            <option value="below1000">Below ₹1000</option>
+            <option value="1000to2000">₹1000 – ₹2000</option>
+            <option value="above2000">Above ₹2000</option>
+          </select>
+        </div>
+      </div>
+  
+      <!-- Sunglass Cards -->
+      <div class="col-md-9">
+        <div class="frame-container">
+          <div class="frame-card" *ngFor="let s of filteredSunglasses">
+            <img src="assets/sunglass-placeholder.jpg" alt="Sunglass" class="frame-img">
+            <h3>{{ s.sunGlassName }}</h3>
+            <p><strong>Brand:</strong> {{ s.brand }}</p>
+            <p><strong>Frame Color:</strong> {{ s.frameColor }}</p>
+            <p><strong>Shape:</strong> {{ s.frameShape }}</p>
+            <p><strong>Glass Color:</strong> {{ s.glassColor }}</p>
+            <p><strong>Price:</strong> ₹{{ s.price }}</p>
+  
+            <button (click)="addToCart(s)" class="add-cart-btn">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

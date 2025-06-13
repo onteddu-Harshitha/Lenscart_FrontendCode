@@ -1,0 +1,56 @@
+<div class="container">
+  <app-admin-navbar></app-admin-navbar>
+  <h2>Frames Management</h2>
+
+  <form (ngSubmit)="addFrame()" #frameForm="ngForm">
+    <input type="text" placeholder="Frame ID" [(ngModel)]="newFrame.frameId" name="frameId" required />
+    <input type="text" placeholder="Frame Name" [(ngModel)]="newFrame.frameName" name="frameName" required />
+    <input type="text" placeholder="Brand" [(ngModel)]="newFrame.brand" name="brand" required />
+    <input type="text" placeholder="Color" [(ngModel)]="newFrame.color" name="color" required />
+    <input type="number" placeholder="Price" [(ngModel)]="newFrame.price" name="price" required />
+    <input type="text" placeholder="Description" [(ngModel)]="newFrame.description" name="description" required />
+    <input type="text" placeholder="Shape" [(ngModel)]="newFrame.shape" name="shape" required />
+    <input type="number" placeholder="Quantity" [(ngModel)]="newFrame.quantity" name="quantity" required />
+    <input type="text" placeholder="Image URL" [(ngModel)]="newFrame.imageUrl" name="imageUrl" required />
+    <button type="submit" (click)="addFrame()">Add / Update Frame</button>
+    <button type="button" (click)="resetForm()">Clear</button>
+  </form>
+
+  <hr />
+
+  <table>
+    <thead>
+      <tr>
+        <th>Frame ID</th>
+        <th>Name</th>
+        <th>Brand</th>
+        <th>Color</th>
+        <th>Price</th>
+        <th>Description</th>
+        <th>Shape</th>
+        <th>Quantity</th>
+        <th>Image</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let frame of frames">
+        <td>{{ frame.frameId }}</td>
+        <td>{{ frame.frameName }}</td>
+        <td>{{ frame.brand }}</td>
+        <td>{{ frame.color }}</td>
+        <td>{{ frame.price }}</td>
+        <td>{{ frame.description }}</td>
+        <td>{{ frame.shape }}</td>
+        <td>{{ frame.quantity }}</td>
+        <td>
+          <img [src]="frame.imageUrl" alt="{{ frame.frameName }}" width="60" />
+        </td>
+        <td>
+          <button (click)="editFrame(frame)">Edit</button>
+          <button (click)="deleteFrame(frame.frameId)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
