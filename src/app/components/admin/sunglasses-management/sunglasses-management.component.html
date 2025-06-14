@@ -1,0 +1,57 @@
+<app-admin-navbar></app-admin-navbar>
+
+<div class="sunglasses-container">
+  <h2>Sunglasses Management</h2>
+
+  <!-- Form -->
+  <form (ngSubmit)="addOrUpdateSunglass()" #sunglassForm="ngForm" class="sunglass-form">
+    <input type="text" placeholder="Sunglass ID" [(ngModel)]="sunglassData.sunGlassId" name="sunGlassId" required />
+    <input type="text" placeholder="Name" [(ngModel)]="sunglassData.sunGlassName" name="sunGlassName" required />
+    <input type="text" placeholder="Brand" [(ngModel)]="sunglassData.brand" name="brand" required />
+    <input type="number" placeholder="Price" [(ngModel)]="sunglassData.price" name="price" required />
+    <input type="text" placeholder="Frame Color" [(ngModel)]="sunglassData.frameColor" name="frameColor" required />
+    <input type="text" placeholder="Frame Shape" [(ngModel)]="sunglassData.frameShape" name="frameShape" required />
+    <input type="text" placeholder="Glass Color" [(ngModel)]="sunglassData.glassColor" name="glassColor" required />
+    <input type="number" placeholder="Quantity" [(ngModel)]="sunglassData.quantity" name="quantity" required />
+
+    <div class="btn-group">
+      <button type="submit">Add / Update</button>
+      <button type="button" (click)="resetForm()">Clear</button>
+    </div>
+  </form>
+
+  <hr />
+
+  <!-- Table -->
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Brand</th>
+        <th>Frame Color</th>
+        <th>Frame Shape</th>
+        <th>Glass Color</th>
+        <th>Price</th>
+        <th>Qty</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let sun of sunglasses">
+        <td>{{ sun.sunGlassId }}</td>
+        <td>{{ sun.sunGlassName }}</td>
+        <td>{{ sun.brand }}</td>
+        <td>{{ sun.frameColor }}</td>
+        <td>{{ sun.frameShape }}</td>
+        <td>{{ sun.glassColor }}</td>
+        <td>{{ sun.price }}</td>
+        <td>{{ sun.quantity }}</td>
+        <td>
+          <button (click)="editSunglass(sun)">Edit</button>
+          <button (click)="deleteSunglass(sun.sunGlassId)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

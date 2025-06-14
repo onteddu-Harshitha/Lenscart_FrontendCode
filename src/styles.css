@@ -1,0 +1,238 @@
+/* ==== Global Variables ==== */
+:root {
+  --primary: #4f46e5;           /* Indigo */
+  --primary-dark: #3730a3;
+  --accent: #06b6d4;            /* Cyan */
+  --danger: #ef4444;            /* Red */
+  --gray-light: #f9fafb;        /* Page background */
+  --gray-medium: #94a3b8;       /* Muted text */
+  --gray-dark: #1e293b;         /* Headings/text */
+  --white: #ffffff;
+  --border: #e2e8f0;
+  --input-bg: #f3f4f6;
+  --shadow-light: rgba(0, 0, 0, 0.06);
+  --font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
+/* ==== Reset ==== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--gray-light);
+  color: var(--gray-dark);
+  line-height: 1.5;
+}
+
+/* ==== Sidebar ==== */
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 240px;
+  background-color: var(--white);
+  border-right: 1px solid var(--border);
+  box-shadow: 2px 0 6px var(--shadow-light);
+  padding: 1rem 0.5rem;
+  transition: width 0.3s ease;
+  z-index: 10;
+}
+
+.sidebar.closed {
+  width: 60px;
+}
+
+.sidebar .logo {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.sidebar nav a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  color: var(--gray-dark);
+  text-decoration: none;
+  border-radius: 6px;
+  margin: 0.25rem 0;
+  transition: background 0.3s;
+}
+
+.sidebar nav a:hover,
+.sidebar nav a.active {
+  background-color: var(--gray-medium);
+  color: var(--white);
+}
+
+/* ==== Toggle Button ==== */
+.toggle-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  color: var(--gray-dark);
+  width: 100%;
+  text-align: left;
+}
+
+/* ==== Main Container ==== */
+.dashboard-container {
+  margin-left: 240px;
+  padding: 2rem;
+  transition: margin-left 0.3s ease;
+}
+
+
+
+.dashboard-container.full-width {
+  margin-left: 60px;
+}
+
+body {
+  background-color: rgb(242, 237, 243);
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+/* ==== Stats Section ==== */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: linear-gradient(135deg, #e0f2fe, #f0f9ff);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 10px var(--shadow-light);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+}
+
+.stat-card h3 {
+  font-size: 1.1rem;
+  color: var(--gray-dark);
+  margin-bottom: 0.5rem;
+}
+
+.stat-card p {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: var(--primary);
+}
+
+/* ==== Category Cards ==== */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 1.5rem;
+}
+
+.category-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 2px 6px var(--shadow-light);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+}
+
+.category-card img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+
+.category-card p {
+  margin: 0;
+  font-weight: 600;
+  color: var(--primary-dark);
+}
+
+/* ==== Headings ==== */
+h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 2rem 0 1rem;
+  color: var(--primary);
+}
+
+/* ==== Buttons ==== */
+button {
+  padding: 0.65rem 1.25rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+  background-color: var(--primary);
+  color: var(--white);
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--primary-dark);
+}
+
+/* ==== Logo ==== */
+.lenscart-logo {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: var(--gray-dark);
+}
+
+.lenscart-logo img {
+  height: 32px;
+  margin-right: 0.5rem;
+}
+
+/* ==== Responsive ==== */
+@media (max-width: 768px) {
+  .dashboard-container {
+    margin-left: 60px;
+    padding: 1rem;
+  }
+
+  .sidebar {
+    width: 60px;
+  }
+
+  .sidebar.closed {
+    width: 0;
+  }
+
+  .sidebar nav a {
+    justify-content: center;
+  }
+
+  .sidebar nav a span {
+    display: none;
+  }
+}

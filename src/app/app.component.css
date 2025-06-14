@@ -1,0 +1,75 @@
+/* Navbar: smaller padding, sticky on top, subtle background */
+nav.navbar {
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+  font-size: 0.95rem;
+  background-color: #f8f9fa; /* light gray */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Make navbar sticky */
+nav.navbar.sticky-top {
+  position: sticky;
+  top: 0;
+  z-index: 1030; /* Bootstrap navbar default */
+}
+
+.lenscart-logo {
+  font-size: 5rem; /* Bigger text */
+  font-weight: 800;
+  font-family: 'Segoe UI', sans-serif;
+  letter-spacing: -1px;
+  color: #333;
+  display: flex;
+  align-items: center;
+}
+
+.lenscart-logo span {
+  color: #0d6efd; /* Bootstrap Primary Blue */
+}
+/* Add top padding to body so content isn't hidden behind navbar */
+body, html {
+  padding-top: 56px; /* height of navbar approx */
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fff;
+  color: #333;
+}
+
+/* Footer styling */
+footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  background-color: #343a40; /* dark */
+  color: #fff;
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 0.9rem;
+}
+
+/* Optional: Navbar brand styling */
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #007bff;
+}
+
+/* Navbar links */
+.navbar-nav .nav-link {
+  color: #495057;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #007bff;
+}
+
+/* Responsive nav toggler */
+.navbar-toggler {
+  border-color: #007bff;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3csvg viewBox='0 0 30 30' ... fill='%23007bff' ... %3c/svg%3e");
+}

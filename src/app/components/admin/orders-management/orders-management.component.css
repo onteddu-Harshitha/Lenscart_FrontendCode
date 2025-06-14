@@ -1,0 +1,75 @@
+.order-management-container {
+  background-color: rgb(242, 237, 243);
+  margin-left: 240px; /* space for sidebar */
+  padding: 30px 20px;
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
+}
+
+.order-management-container h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Filter Bar */
+.filter-bar {
+  margin-bottom: 20px;
+}
+
+.filter-bar select {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* Table Styling */
+.order-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+}
+
+.order-table th,
+.order-table td {
+  padding: 12px 10px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.order-table th {
+  background-color: #f3eef6;
+  font-weight: 600;
+}
+
+/* Row Hover Effect */
+.order-table tr:hover {
+  background-color: #f0f0f7;
+  cursor: pointer;
+}
+
+/* Status Badge */
+.status {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+}
+
+/* Status Colors */
+.status.processing {
+  background-color: #ffa726;
+}
+
+.status.shipped {
+  background-color: #42a5f5;
+}
+
+.status.delivered {
+  background-color: #66bb6a;
+}

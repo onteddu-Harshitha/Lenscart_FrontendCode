@@ -1,0 +1,88 @@
+<!-- Header -->
+<app-header></app-header>
+
+<!-- Hero Banner -->
+<div class="hero-banner text-white text-center d-flex align-items-center justify-content-center">
+  <div>
+    <h1 class="display-4 fw-bold">Welcome to LensCart</h1>
+    <p class="lead">Your one-stop shop for stylish eyewear</p>
+    <a routerLink="/products" class="btn btn-light px-4 mt-3">Shop Now</a>
+  </div>
+</div>
+
+<!-- Shop by Category -->
+<div class="container my-5">
+  <h2 class="text-center mb-4">Shop by Category</h2>
+  <div class="row text-center">
+    <div class="col-md-3 mb-4" routerLink="/frames">
+      <div class="card shadow-sm">
+        <img src="assets/image/frame.png" class="card-img-top" alt="Frames">
+        <div class="card-body">
+          <h5>Frames</h5>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 mb-4" routerLink="/lenses">
+      <div class="card shadow-sm">
+        <img src="assets/image/lenses.png" class="card-img-top" alt="Lenses">
+        <div class="card-body">
+          <h5>Lenses</h5>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 mb-4" routerLink="/glasses">
+      <div class="card shadow-sm">
+        <img src="assets/image/glass.png" class="card-img-top" alt="Glasses">
+        <div class="card-body">
+          <h5>Glasses</h5>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 mb-4" routerLink="/sunglasses">
+      <div class="card shadow-sm">
+        <img src="assets/image/sunglass.png" class="card-img-top" alt="Sunglasses">
+        <div class="card-body">
+          <h5>Sunglasses</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Testimonials -->
+<section class="testimonials my-5 py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center mb-4">What Our Customers Say</h2>
+    <div class="row">
+      <div class="col-md-4 mb-4" *ngFor="let review of testimonials">
+        <div class="testimonial-card p-4 shadow-sm h-100">
+          <p class="testimonial-text">“{{ review.message }}”</p>
+          <div class="testimonial-author mt-3 text-end">
+            <strong>{{ review.name }}</strong><br />
+            <small>⭐️⭐️⭐️⭐️⭐️</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Top Selling Products -->
+<section class="top-selling py-5">
+  <div class="container">
+    <h2 class="text-center mb-4">Top Selling Products</h2>
+    <div class="row">
+      <div class="col-md-3 mb-4" *ngFor="let product of topProducts">
+        <div class="card h-100 shadow-sm">
+          <img [src]="product.image" class="card-img-top" alt="{{product.name}}">
+          <div class="card-body text-center">
+            <h5 class="card-title">{{ product.name }}</h5>
+            <p class="text-muted">₹{{ product.price }}</p>
+            <!-- <a routerLink="/product/{{product.id}}" class="btn btn-sm btn-outline-primary">View</a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<app-footer></app-footer>

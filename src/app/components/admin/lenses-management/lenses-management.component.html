@@ -1,0 +1,126 @@
+<!-- <div class="container mt-4">
+  <h2>Lenses Management</h2>
+
+  <button class="btn btn-success mb-3" (click)="onAddNew()">Add New Lens</button>
+
+  <div *ngIf="selectedLens" class="card mb-4 p-3">
+    <form #lensForm="ngForm" (ngSubmit)="onSubmit(lensForm)">
+      <div class="mb-3">
+        <label>Brand</label>
+        <input type="text" class="form-control" [(ngModel)]="selectedLens.brand" name="brand" required />
+      </div>
+
+      <div class="mb-3">
+        <label>Image URL</label>
+        <input type="text" class="form-control" [(ngModel)]="selectedLens.lensImage" name="lensImage" required />
+      </div>
+
+      <div class="mb-3">
+        <label>Shape</label>
+        <input type="text" class="form-control" [(ngModel)]="selectedLens.shape" name="shape" required />
+      </div>
+
+      <div class="mb-3">
+        <label>Colour</label>
+        <input type="text" class="form-control" [(ngModel)]="selectedLens.colour" name="colour" required />
+      </div>
+
+      <div class="mb-3">
+        <label>Price</label>
+        <input type="number" class="form-control" [(ngModel)]="selectedLens.price" name="price" required min="0" />
+      </div>
+
+      <div class="mb-3">
+        <label>Quantity</label>
+        <input type="number" class="form-control" [(ngModel)]="selectedLens.quantity" name="quantity" required min="0" />
+      </div>
+
+      <button type="submit" class="btn btn-primary me-2" [disabled]="lensForm.invalid">Save</button>
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancel</button>
+    </form>
+  </div>
+
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Lens ID</th>
+        <th>Brand</th>
+        <th>Image</th>
+        <th>Shape</th>
+        <th>Colour</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let lens of lensesList">
+        <td>{{ lens.lensId }}</td>
+        <td>{{ lens.brand }}</td>
+        <td><img [src]="lens.lensImage" alt="{{lens.brand}}" width="60" /></td>
+        <td>{{ lens.shape }}</td>
+        <td>{{ lens.colour }}</td>
+        <td>{{ lens.price | currency }}</td>
+        <td>{{ lens.quantity }}</td>
+        <td>
+          <button class="btn btn-sm btn-warning me-1" (click)="onSelectLens(lens)">Edit</button>
+          <button class="btn btn-sm btn-danger" (click)="onDelete(lens.lensId)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div> -->
+<app-admin-navbar></app-admin-navbar>
+
+<div class="lenses-container">
+  <h2>Lenses Management</h2>
+
+  <!-- Form Section -->
+  <form (ngSubmit)="addOrUpdateLens()" #lensForm="ngForm" class="lens-form">
+    <input type="text" placeholder="Lens ID" [(ngModel)]="lensData.lensId" name="lensId" required />
+    <input type="text" placeholder="Brand" [(ngModel)]="lensData.brand" name="brand" required />
+    <input type="text" placeholder="Shape" [(ngModel)]="lensData.shape" name="shape" required />
+    <input type="text" placeholder="Colour" [(ngModel)]="lensData.colour" name="colour" required />
+    <input type="number" placeholder="Price" [(ngModel)]="lensData.price" name="price" required />
+    <input type="number" placeholder="Quantity" [(ngModel)]="lensData.quantity" name="quantity" required />
+    <input type="text" placeholder="Image URL" [(ngModel)]="lensData.lensImage" name="lensImage" required />
+
+    <div class="btn-group">
+      <button type="submit">Add / Update</button>
+      <button type="button" (click)="resetForm()">Clear</button>
+    </div>
+  </form>
+
+  <hr />
+
+  <!-- Table Section -->
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Image</th>
+        <th>Brand</th>
+        <th>Shape</th>
+        <th>Colour</th>
+        <th>Price</th>
+        <th>Qty</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let lens of lenses">
+        <td>{{ lens.lensId }}</td>
+        <td><img [src]="lens.lensImage" alt="Lens" width="60" /></td>
+        <td>{{ lens.brand }}</td>
+        <td>{{ lens.shape }}</td>
+        <td>{{ lens.colour }}</td>
+        <td>{{ lens.price }}</td>
+        <td>{{ lens.quantity }}</td>
+        <td>
+          <button (click)="editLens(lens)">Edit</button>
+          <button (click)="deleteLens(lens.lensId)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

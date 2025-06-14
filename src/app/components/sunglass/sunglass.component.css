@@ -1,0 +1,43 @@
+.frame-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .frame-card {
+    width: 250px;
+    background: #fff;
+    margin: 15px;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .frame-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .frame-img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+  
+  .add-cart-btn {
+    background-color: #28a745;
+    border: none;
+    color: white;
+    padding: 10px 16px;
+    margin-top: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .add-cart-btn:hover {
+    background-color: #1e7e34;
+  }
+  

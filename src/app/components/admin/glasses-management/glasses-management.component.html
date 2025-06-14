@@ -1,0 +1,35 @@
+<app-admin-navbar></app-admin-navbar>
+
+<div class="glasses-container">
+  <h2>Manage Glasses</h2>
+
+  <form (ngSubmit)="onSubmit()" #glassForm="ngForm" class="glass-form">
+    <input type="text" name="glassId" placeholder="Glass ID" [(ngModel)]="glassData.glassId" required />
+    <input type="text" name="glassName" placeholder="Name" [(ngModel)]="glassData.glassName" required />
+    <input type="text" name="brand" placeholder="Brand" [(ngModel)]="glassData.brand" required />
+    <input type="number" name="price" placeholder="Price" [(ngModel)]="glassData.price" required />
+    <input type="text" name="type" placeholder="Type" [(ngModel)]="glassData.type" required />
+    <input type="number" name="powerRange" placeholder="Power Range" [(ngModel)]="glassData.powerRange" required />
+    <input type="text" name="glassImage" placeholder="Image URL" [(ngModel)]="glassData.glassImage" required />
+    <input type="number" name="quantity" placeholder="Quantity" [(ngModel)]="glassData.quantity" required />
+    
+    <button type="submit">{{ isEditMode ? 'Update' : 'Add' }} Glass</button>
+    <button type="button" (click)="resetForm()">Clear</button>
+  </form>
+
+  <div class="glass-list">
+    <div class="glass-card" *ngFor="let glass of glasses">
+      <img [src]="glass.glassImage" alt="glass image" />
+      <div>
+        <h4>{{ glass.glassName }}</h4>
+        <p>Brand: {{ glass.brand }}</p>
+        <p>Type: {{ glass.type }}</p>
+        <p>Power Range: {{ glass.powerRange }}</p>
+        <p>Price: ₹{{ glass.price }}</p>
+        <p>Quantity: {{ glass.quantity }}</p>
+        <button (click)="editGlass(glass)">Edit</button>
+        <button (click)="deleteGlass(glass.glassId)">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>

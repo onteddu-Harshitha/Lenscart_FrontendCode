@@ -1,0 +1,95 @@
+.frame-management-container {
+    background-color: rgb(242, 237, 243);
+    margin-left: 240px;
+    /* enough space for sidebar */
+    padding: 30px 20px;
+    font-family: 'Segoe UI', sans-serif;
+    
+    min-height: 100vh;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.frame-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 30px;
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.frame-form input,
+.frame-form textarea,
+.frame-form button {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+
+.frame-form button {
+    background-color: #7e57c2;
+    color: white;
+    border: none;
+    cursor: pointer;
+    grid-column: span 2;
+    transition: background 0.3s;
+}
+
+.frame-form button:hover {
+    background-color: #5e35b1;
+}
+
+.frames-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.frames-table th,
+.frames-table td {
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.frames-table th {
+    background-color: #f3eef6;
+    font-weight: 600;
+}
+
+.frames-table img {
+    width: 60px;
+    height: 40px;
+    object-fit: contain;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.frames-table button {
+    margin-right: 6px;
+    padding: 5px 10px;
+    font-size: 0.85rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.frames-table button:first-child {
+    background-color: #ffa726;
+    color: white;
+}
+
+.frames-table button:last-child {
+    background-color: #ef5350;
+    color: white;
+}

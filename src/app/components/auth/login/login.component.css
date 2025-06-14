@@ -1,0 +1,89 @@
+/* 🌌 Dark Gradient Background */
+body {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  color: #f0f0f0;
+  margin: 0;
+}
+
+/* 📦 Login Box */
+.container {
+  background: #1e2a38;
+  padding: 40px 30px;
+  border-radius: 15px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  max-width: 400px;
+  width: 100%;
+}
+
+/* 📝 Heading */
+h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* ✨ Input Fields */
+.form-control {
+  padding: 12px;
+  border-radius: 10px;
+  background-color: #2a3a4b;
+  border: 1px solid #4c5c6c;
+  color: #f0f0f0;
+  transition: 0.3s ease-in-out;
+}
+
+.form-control:focus {
+  border-color: #00bcd4;
+  box-shadow: 0 0 8px rgba(0, 188, 212, 0.6);
+  background-color: #2f4153;
+}
+
+/* 💬 Labels */
+label {
+  margin-bottom: 8px;
+  display: block;
+  color: #b0bec5;
+  font-size: 14px;
+}
+
+/* 🔐 Login Button */
+.btn-primary {
+  background: linear-gradient(to right, #00c6ff, #0072ff);
+  border: none;
+  padding: 12px;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(to right, #005bea, #00c6ff);
+  transform: translateY(-1px);
+}
+
+/* 🔗 Signup Link */
+a {
+  color: #81d4fa;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* 🧊 Disabled Button */
+button:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
