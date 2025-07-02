@@ -1,3 +1,4 @@
+<app-header></app-header>
 <div class="container my-4">
     <div class="row">
       <!-- Sidebar Filters -->
@@ -27,19 +28,30 @@
         </div>
       </div>
   
+  
       <!-- Sunglass Cards -->
       <div class="col-md-9">
         <div class="frame-container">
           <div class="frame-card" *ngFor="let s of filteredSunglasses">
-            <img src="assets/sunglass-placeholder.jpg" alt="Sunglass" class="frame-img">
+            <!-- <img [src]="lens.lensImage || 'assets/lens-placeholder.jpg'" alt="Lens Image" class="frame-img"> -->
+            <img [src]="s.image || 'assets/sunglass-placeholder.jpg'" alt="Sunglass" class="frame-img"/>
             <h3>{{ s.sunGlassName }}</h3>
             <p><strong>Brand:</strong> {{ s.brand }}</p>
             <p><strong>Frame Color:</strong> {{ s.frameColor }}</p>
             <p><strong>Shape:</strong> {{ s.frameShape }}</p>
             <p><strong>Glass Color:</strong> {{ s.glassColor }}</p>
             <p><strong>Price:</strong> ₹{{ s.price }}</p>
+            <p class="card-text"><strong>Available:</strong> {{ s.quantity }}</p>
+<div *ngIf="s.quantity>0;else Out Of Stock">
+          <button class="btn btn-outline-primary mt-auto" (click)="addToCart(s)">
+            Add to Cart
+          </button>
+          </div>
+          <ng-template #Out Of Stock>
+<span style="color:red;font-weight: bold;">Out Of Stock</span>
+          </ng-template>
   
-            <button (click)="addToCart(s)" class="add-cart-btn">Add to Cart</button>
+            <!-- <button (click)="addToCart(s)" class="add-cart-btn">Add to Cart</button> -->
           </div>
         </div>
       </div>

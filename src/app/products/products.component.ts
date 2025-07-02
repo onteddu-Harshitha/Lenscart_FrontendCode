@@ -36,31 +36,39 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  addToCart(product: any): void {
-    if (!this.authService.isLoggedIn()) {
-      alert('Please log in to add items to cart.');
-      this.router.navigate(['/login']);
-      return;
-    }
-
-    const customerId = this.authService.getLoggedInUserId(); // Get the logged-in user ID
-    const cartItem = {
-      customerId: customerId,
-      productId: product.id,
-      quantity: 1 // Or get this value from user input
-    };
-
-    this.cartService.addToCart(cartItem).subscribe({
-      next: (response) => {
-        alert('Item added to cart!');
-        this.router.navigate(['/cart']); // Redirect to cart page after successful addition
-      },
-      error: (error) => {
-        console.error('Failed to add item to cart:', error);
-        alert('Failed to add item to cart. Please try again.');
-      }
-    });
-  }
+ addToCart(product:any): void {
+   const customerId = localStorage.getItem('customerId');
+   const token = this.authService.getToken();
+   console.log('Token:', token);
+ 
+   if (!token || token === 'null' || token === 'undefined') {
+     alert('Please login to continue');
+     this.router.navigate(['/login']);
+     return;
+   }
+ 
+   const cartItem = {
+     customerId: Number(customerId),
+     productId: product.id,
+     quantity: 1
+   };
+ 
+   this.cartService.addToCart(cartItem).subscribe({
+     next: (response) => {
+       alert('Item successfully added to cart!');
+     },
+     error: (err) => {
+       console.error('Failed to add item to cart:', err);
+ 
+       // 👇 Custom message if backend sends stock issue
+       if (err.error?.message?.toLowerCase().includes('stock')) {
+         alert('❌ Stock not available for this item.');
+       } else {
+         alert('Out of Stock');
+       }
+     }
+   });
+ }
 
   extractTypeFromId(id: string): string {
     return id.split('-')[0]; // Example: frame-101 => frame

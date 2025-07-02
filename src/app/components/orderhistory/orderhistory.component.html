@@ -1,58 +1,42 @@
+<app-header></app-header>
+
 <div class="order-history-container">
-    <h2>📦 Your Orders</h2>
+  <h2>📦 Your Orders</h2>
 
-    <div *ngIf="isLoading" class="loading">Loading...</div>
-    <div *ngIf="errorMessage" class="error-msg">{{ errorMessage }}</div>
+  <div *ngIf="isLoading" class="loading">Loading...</div>
+  <div *ngIf="errorMessage" class="error-msg">{{ errorMessage }}</div>
 
-    <div *ngFor="let order of orders" class="order-card">
-        <div class="order-header">
-            <p><strong>Order ID:</strong> {{ order.orderId }}</p>
-            <p><strong>Date:</strong> {{ order.orderDateTime | date:'medium' }}</p>
-            <p><strong>Status:</strong> {{ order.orderStatus }}</p>
-            <p><strong>Total:</strong> ₹{{ order.totalAmount }}</p>
+  <div *ngFor="let order of orders" class="order-card">
+    <div class="order-header">
+      <p><strong>Order ID:</strong> {{ order.orderId }}</p>
+      <p><strong>Date:</strong> {{ order.orderDateTime | date: 'medium' }}</p>
+      <p>
+        <strong>Status:</strong>
+        <span [ngClass]="{
+            'status-cancelled': order.orderStatus === 'CANCELLED',
+            'status-completed': order.orderStatus === 'COMPLETED',
+            'status-pending': order.orderStatus === 'PENDING'
+          }">
+          {{ order.orderStatus }}
+        </span>
+      </p>
+      <p><strong>Total:</strong> ₹{{ order.totalAmount }}</p>
+
+      
+
+    <div class="order-items">
+      <div *ngFor="let item of order.items" class="order-item">
+        <img [src]="item.imagePath" alt="{{ item.productName }}" />
+        <div>
+          <p>{{ item.productName }}</p>
+          <p>₹{{ item.discountedPrice }} x {{ item.quantity }}</p>
         </div>
-
-        <div class="order-items">
-            <div *ngFor="let item of order.items" class="order-item">
-                <img [src]="item.imagePath" alt="{{ item.productName }}" />
-                <div>
-                    <p>{{ item.productName }}</p>
-                    <p>₹{{ item.discountedPrice }} x {{ item.quantity }}</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- <div *ngIf="order.orderStatus === 'DELIVERED' && !feedbackMode[order.orderId]" class="feedback-button">
-            <button (click)="enableFeedback(order.orderId)">Give Feedback</button>
-        </div>
- -->
-
-        <!-- <div *ngIf="feedbackMode[order.orderId]" class="feedback-section">
-            <div class="stars">
-                <span class="star" *ngFor="let star of [1,2,3,4,5]" [class.selected]="ratings[order.orderId] >= star"
-                    (click)="rateOrder(order.orderId, star); $event.stopPropagation()">★</span>
-                <span class="emoji">
-                    {{
-                    ratings[order.orderId] === 1 ? '😐' :
-                    ratings[order.orderId] === 2 ? '😕' :
-                    ratings[order.orderId] === 3 ? '🙂' :
-                    ratings[order.orderId] === 4 ? '😊' :
-                    ratings[order.orderId] === 5 ? '😁' : ''
-                    }}
-                </span>
-            </div>
- 
-            <div class="feedback-box">
-                <textarea placeholder="Share your thoughts..." [(ngModel)]="feedbacks[order.orderId]"
-                    (click)="$event.stopPropagation()"></textarea>
-            </div>
- 
-            <div class="submit-button">
-                <button (click)="submitFeedback(order.orderId)">Submit</button>
-            </div> -->
-
-
-
-
+      </div>
     </div>
+    <!-- Cancel button shown only if not cancelled -->
+      <button *ngIf="order.orderStatus !== 'CANCELLED'" (click)="cancelOrder(order.orderId)">
+        ❌ Cancel Order
+      </button>
+    </div>
+  </div>
 </div>

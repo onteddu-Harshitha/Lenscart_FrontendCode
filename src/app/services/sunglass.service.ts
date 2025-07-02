@@ -11,6 +11,7 @@ export interface Sunglass {
   frameShape: string;
   glassColor: string;
   quantity: number;
+  image: string;
 }
 
 @Injectable({

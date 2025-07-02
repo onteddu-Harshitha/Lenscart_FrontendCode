@@ -8,7 +8,7 @@ export interface Frame {
   brand: string;
   color: string;
   price: number;
-  description: string;
+ 
   shape: string;
   quantity: number;
   imageUrl: string;

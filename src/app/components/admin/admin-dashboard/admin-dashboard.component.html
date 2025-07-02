@@ -1,45 +1,105 @@
+<!-- admin-dashboard.component.html -->
 <div class="dashboard-container">
   <app-admin-navbar></app-admin-navbar>
-  
-  <!-- Business Statistics Section -->
-  <div class="stats-grid">
-    <div class="stat-card">
-      <h3>Total Revenue</h3>
-      <p>₹5,20,000</p>
+  <!-- Top Stats Section -->
+  <div class="stats-section">
+ 
+    <div class="stat-card red bg-gradient-info text-white">
+      <div class="card-body">
+        <img src="assets/image/dashboard/circle.svg" class="card-img-absolute" alt="circle">
+        <h4>Out of Stock</h4>
+        <p>{{ outOfStockCount }}</p>
+      </div>
     </div>
-    <div class="stat-card">
-      <h3>Orders</h3>
-      <p>1,245</p>
+ 
+    <div class="stat-card blue bg-gradient-info text-white">
+      <div class="card-body">
+        <img src="assets/image/dashboard/circle.svg" class="card-img-absolute" alt="circle">
+        <h4>Upcoming Orders</h4>
+        <p>{{ upcomingOrders }}</p>
+      </div>
     </div>
-    <div class="stat-card">
-      <h3>Customers</h3>
-      <p>850</p>
+ 
+    <div class="stat-card green bg-gradient-info text-white">
+      <div class="card-body">
+        <img src="assets/image/dashboard/circle.svg" class="card-img-absolute" alt="circle">
+        <h4>Weekly Sales</h4>
+        <p>₹{{ weeklySales }}</p>
+      </div>
     </div>
-    <div class="stat-card">
-      <h3>Products</h3>
-      <p>320</p>
+ 
+  </div>
+ 
+  <!-- Middle Section -->
+  <div class="middle-section">
+    <!-- Calendar -->
+    <div class="calendar-widget">
+ 
+      <div class="calendar-header">
+        <button (click)="prevMonth()">&#8249;</button>
+        <span>{{ months[currentMonth] }} {{ currentYear }}</span>
+        <button (click)="nextMonth()">&#8250;</button>
+      </div>
+      <div class="calendar-grid">
+        <div class="day-name" *ngFor="let day of days">{{ day }}</div>
+        <div class="day" *ngFor="let date of calendarDays" [class.today]="isToday(date)">
+          {{ date.getDate() }}
+        </div>
+      </div>
+    </div>
+ 
+ 
+ 
+    <!-- Todo List -->
+    <div class="todo">
+      <h4>Todo List</h4>
+      <div class="todo-input">
+        <input [(ngModel)]="newTask" placeholder="Add task...">
+        <button (click)="addTask()">Add</button>
+      </div>
+      <ul>
+        <li *ngFor="let task of todos" [class.completed]="task.done">
+          <input type="checkbox" [(ngModel)]="task.done"> {{ task.text }}
+          <button (click)="removeTask(task)">x</button>
+        </li>
+      </ul>
     </div>
   </div>
-
-  <!-- Category Navigation Section -->
-  <h2 style="margin-top: 40px;">🛍️ Manage Categories</h2>
-  <div class="category-grid">
-    <div class="category-card" (click)="goTo('frames')">
-      <img src="assets/image/frame.png" alt="Frames">
-      <p>Frames</p>
+ 
+  <!-- Recently Placed Orders -->
+  <!-- Recent Orders Section -->
+  <div class="recent-orders">
+    <h3>Recent Orders (Placed Today)</h3>
+ 
+    <!-- If no recent orders, display the message -->
+    <div *ngIf="recentOrders.length === 0" class="no-orders-message">
+      No orders placed today.
     </div>
-    <div class="category-card" (click)="goTo('lenses')">
-      <img src="assets/image/lenses.png" alt="Lenses">
-      <p>Lenses</p>
-    </div>
-    <div class="category-card" (click)="goTo('glasses')">
-      <img src="assets/image/glass.png" alt="Glasses">
-      <p>Glasses</p>
-    </div>
-    <div class="category-card" (click)="goTo('sunglasses')">
-      <img src="assets/image/sunglass.png" alt="Sunglasses">
-      <p>Sunglasses</p>
-    </div>
+ 
+    <!-- If there are orders, display them in a table -->
+    <table *ngIf="recentOrders.length > 0">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Total</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of recentOrders">
+          <td>#{{ order.orderId }}</td>
+          <td>{{ order.totalAmount | currency:'INR':'symbol':'1.0-0' }}</td>
+          <td>
+            {{ order.orderDateTime | date:'longDate' }}
+            {{ order.orderDateTime | date:'shortTime' }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+ 
+    <!-- Optional: See more button -->
+    <button class="see-more" routerLink="/admin/orders-management">See More</button>
   </div>
-  <router-outlet></router-outlet>
+ 
+ 
 </div>

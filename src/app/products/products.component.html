@@ -1,3 +1,4 @@
+<app-header></app-header>
 <div class="container my-5">
   <h2 class="text-center mb-4">Shop All Products</h2>
 
@@ -26,10 +27,14 @@
           <p class="card-text text-muted">{{ product.description }}</p>
           <p class="card-text"><strong>Price:</strong> ₹{{ product.price }}</p>
           <p class="card-text"><strong>Available:</strong> {{ product.quantity }}</p>
-
+<div *ngIf="product.quantity>0;else Out Of Stock">
           <button class="btn btn-outline-primary mt-auto" (click)="addToCart(product)">
             Add to Cart
           </button>
+          </div>
+          <ng-template #Out Of Stock>
+<span style="color:red;font-weight: bold;">Out Of Stock</span>
+          </ng-template>
         </div>
       </div>
     </div>

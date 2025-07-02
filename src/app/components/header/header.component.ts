@@ -33,8 +33,8 @@ toggleUserDropdown(): void {
   this.isUserDropdownOpen = !this.isUserDropdownOpen;
 }
 
-get username(): string | null {
-  return this.authService.getUsername();
+get username(): number | null {
+  return this.authService.getLoggedInUserId();
 }
 
 logout(): void {

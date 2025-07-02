@@ -120,7 +120,9 @@ export class OrdersService {
   getOrders(): Observable<any> {
     return this.http.get(`${this.BaseUrl}/all`, this.getHeaders());
   }
-
+getCustomerOrders(customerId: number): Observable<any[]> {
+  return this.http.get<any[]>(`${this.BaseUrl}/customer?customerId=${customerId}`, this.getHeaders());
+}
   deletePendingOrder(orderId: number): Observable<any> {
     const url = `${this.BaseUrl}/delete/${orderId}`;
     return this.http.delete(url, this.getHeaders());
@@ -135,4 +137,12 @@ export class OrdersService {
     //const headers = this.getHeaders();
     return this.http.delete(`${this.baseUrl}/${customerId}/clear`, this.getHeaders());
   }
+  cancelOrder(orderId: number): Observable<any> {
+  return this.http.put(
+    `${this.BaseUrl}/cancel/${orderId}`,
+    {},
+    this.getHeaders()
+  );
+}
+
 }

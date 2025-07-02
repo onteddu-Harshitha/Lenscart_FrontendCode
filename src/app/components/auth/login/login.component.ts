@@ -14,35 +14,13 @@ export class LoginComponent {
   };
 
   constructor(private authService: AuthService, private router: Router) {}
+showPassword = false;
 
-  // login(): void {
-  //   this.authService.login(this.credentials).subscribe({
-  //     next: (res) => {
-  //       alert(res.message); // Optional: Show "Login successful"
-  //       this.authService.saveToken(res.token); // Store JWT
-  //       this.router.navigate(['/home']); // ✅ Redirect to home
-  //     },
-  //     error: (err) => {
-  //       console.error(err);
-  //       alert('Login failed. Please check credentials.');
-  //     },
-  //   });
-  // }
-  // login(): void {
-  //   this.authService.login(this.credentials).subscribe({
-  //     next: (res) => {
-  //       alert(res.message);
-  //       this.authService.saveToken(res.token); // Save token
-  //       localStorage.setItem("role", res.role); // ✅ Save role
-  //       localStorage.setItem("customerId", res.customerId); // ✅ Save customerId
-  //       this.router.navigate(['/home']);
-  //     },
-  //     error: (err) => {
-  //       console.error(err);
-  //       alert('Login failed. Please check credentials.');
-  //     },
-  //   });
-  // }
+togglePassword(): void {
+  this.showPassword = !this.showPassword;
+}
+
+ 
   login(): void {
   this.authService.login(this.credentials).subscribe({
     next: (res) => {

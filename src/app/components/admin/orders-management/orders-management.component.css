@@ -1,154 +1,75 @@
-/* Container for the whole order management section */
-/* General Container */
 .order-management-container {
-    background-color: #fff5e0;
-    /* Soft light orange background */
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 1000px;
-    margin: 20px auto;
-    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+  background-color: rgb(242, 237, 243);
+  margin-left: 240px; /* space for sidebar */
+  padding: 30px 20px;
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
 }
 
-/* Heading */
-h2 {
-    text-align: center;
-    color: #d9534f;
-    /* Red for the title */
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 30px;
+.order-management-container h2 {
+  margin-bottom: 20px;
+  color: #333;
 }
 
 /* Filter Bar */
 .filter-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    background-color: #fff;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 }
 
-/* Filter Inputs */
-.filter-bar input,
 .filter-bar select {
-    width: 48%;
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid #ff6f61;
-    /* Orange border for inputs */
-    border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
 }
 
-.filter-bar input:focus,
-.filter-bar select:focus {
-    border-color: #ff4d30;
-    /* Darker orange on focus */
-    outline: none;
-}
-
-/* Table Styles */
+/* Table Styling */
 .order-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
 }
 
 .order-table th,
 .order-table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ffd6cc;
-    /* Light red border */
+  padding: 12px 10px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
 }
 
 .order-table th {
-    background-color: #ff6f61;
-    /* Orange-red background for header */
-    color: #fff;
-    font-weight: bold;
+  background-color: #f3eef6;
+  font-weight: 600;
 }
 
-.order-table td {
-    background-color: #fff;
-}
-
+/* Row Hover Effect */
 .order-table tr:hover {
-    background-color: #ffefdb;
-    /* Light orange background when hovering */
-    cursor: pointer;
+  background-color: #f0f0f7;
+  cursor: pointer;
 }
 
-/* Status Column Styling */
+/* Status Badge */
 .status {
-    padding: 5px;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 4px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
 }
 
-/* Different Status Styles */
+/* Status Colors */
 .status.processing {
-    background-color: #1aaeed;
-    /* Yellow-orange for processing */
-    color: #fff;
+  background-color: #ffa726;
 }
 
 .status.shipped {
-    background-color: #f39c12;
-    /* Orange for shipped */
-    color: #fff;
+  background-color: #42a5f5;
 }
 
 .status.delivered {
-    background-color: #28a745;
-    /* Green for delivered */
-    color: #fff;
-}
-
-/* Action Button Styles */
-button {
-    padding: 8px 16px;
-    margin: 5px;
-    font-size: 14px;
-    background-color: #ff6f61;
-    /* Red-orange background for buttons */
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #e45f54;
-    /* Darker red-orange when hovered */
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .filter-bar {
-        flex-direction: column;
-    }
-
-    .filter-bar input,
-    .filter-bar select {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    h2 {
-        font-size: 24px;
-    }
-
-    .order-table {
-        font-size: 14px;
-    }
-
-    .order-table th,
-    .order-table td {
-        padding: 8px;
-    }
+  background-color: #66bb6a;
 }

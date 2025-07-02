@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { Glass, GlassService } from 'src/app/services/glass.service';
 
@@ -20,7 +21,7 @@ export class GlassComponent implements OnInit {
   brands: string[] = [];
   types: string[] = [];
 
-  constructor(private glassService: GlassService, private cartservice: CartService, private router: Router) { }
+  constructor(private glassService: GlassService, private cartService: CartService, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.glassService.getAllGlasses().subscribe(data => {
@@ -45,44 +46,104 @@ export class GlassComponent implements OnInit {
     });
   }
 
+
+
+
+
   // addToCart(glass: Glass): void {
-  //   console.log('Add to cart:', glass);
-  //   // Add cart logic here
+  //   const idFromStorage = localStorage.getItem("customerId");
+  //   const customerId = idFromStorage ? Number(idFromStorage) : null;
+
+  //   if (!customerId) {
+  //     this.router.navigate(['/login']);
+  //     return;
+  //   }
+
+  //   const cartItem = {
+  //     customerId: customerId,
+  //     productId: glass.glassId,     // or glass.productId depending on your model
+  //     quantity: 1,
+  //     price: glass.price
+  //   };
+
+  //   console.log('Adding to cart:', cartItem);
+
+  //   this.cartservice.addToCart(cartItem).subscribe(
+  //     (response) => {
+  //       console.log('Item added to cart successfully:', response);
+  //       // Optionally show a success message or update cart UI
+  //     },
+  //     (error) => {
+  //       console.error('Error adding item to cart:', error);
+  //       // Optionally show an error message
+  //     }
+  //   );
   // }
 
-  // addToCart(customerId: number, item: { productId: string; quantity: number; price: number }): Observable<any> {
-  //   return this.cartservice.addToCart(customerId, item);
-  // }
+  // addToCart(glass: Glass): void {
+  //    const customerId = localStorage.getItem('customerId');
 
+  //    if (!customerId) {
+  //      alert('Please login to continue');
+  //      this.router.navigate(['/login']);
+  //      return;
+  //    }
+
+  //    const cartItem = {
+  //      customerId: Number(customerId),
+  //      productId: glass.glassId,
+  //      quantity: 1
+  //    };
+
+  //    this.cartService.addToCart(cartItem).subscribe({
+  //      next: (response) => {
+  //        alert('Item successfully added to cart!');
+  //      },
+  //      error: (err) => {
+  //        console.error('Failed to add item to cart:', err);
+
+  //        // 👇 Custom message if backend sends stock issue
+  //        if (err.error?.message?.toLowerCase().includes('stock')) {
+  //          alert('❌ Stock not available for this item.');
+  //        } else {
+  //          alert('❌ Error adding item to cart.');
+  //        }
+  //      }
+  //    });
+  //  }
   addToCart(glass: Glass): void {
-    const idFromStorage = localStorage.getItem("customerId");
-    const customerId = idFromStorage ? Number(idFromStorage) : null;
+    const customerId = localStorage.getItem('customerId');
+    const token = this.authService.getToken();
+    console.log('Token:', token);
 
-    if (!customerId) {
+    if (!token || token === 'null' || token === 'undefined') {
+      alert('Please login to continue');
       this.router.navigate(['/login']);
       return;
     }
 
     const cartItem = {
-      customerId: customerId,
-      productId: glass.glassId,     // or glass.productId depending on your model
-      quantity: 1,
-      price: glass.price
+      customerId: Number(customerId),
+      productId: glass.glassId,
+      quantity: 1
     };
 
-    console.log('Adding to cart:', cartItem);
-
-    this.cartservice.addToCart(cartItem).subscribe(
-      (response) => {
-        console.log('Item added to cart successfully:', response);
-        // Optionally show a success message or update cart UI
+    this.cartService.addToCart(cartItem).subscribe({
+      next: (response) => {
+        alert('Item successfully added to cart!');
       },
-      (error) => {
-        console.error('Error adding item to cart:', error);
-        // Optionally show an error message
+      error: (err) => {
+        console.error('Failed to add item to cart:', err);
+
+        if (err.status === 403) {
+          alert('❌ You are not authorized to perform this action. Please login again.');
+          this.router.navigate(['/login']);
+        } else if (err.error?.message?.toLowerCase().includes('stock')) {
+          alert('❌ Stock not available for this item.');
+        } else {
+          alert('Out of Stock');
+        }
       }
-    );
+    });
   }
-
-
 }

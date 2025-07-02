@@ -1,84 +1,68 @@
-// import { Component } from '@angular/core';
-
-// @Component({
-//   selector: 'app-orderhistory',
-//   templateUrl: './orderhistory.component.html',
-//   styleUrls: ['./orderhistory.component.css']
-// })
-// export class OrderhistoryComponent {
-
-// }
-
-
 import { Component, OnInit } from '@angular/core';
 import { OrdersService } from 'src/app/services/orders.service';
 
-//import { FeedbackService, Feedback } from '../services/feedback.service';
-
 export interface OrderItem {
-    productName: string;
-    imagePath: string;
-    discountedPrice: number;
-    quantity: number;
+  productName: string;
+  imagePath: string;
+  discountedPrice: number;
+  quantity: number;
 }
 
 export interface Order {
-    orderId: string;
-    orderDateTime: string;
-    orderStatus: string;
-    totalAmount: number;
-    items: OrderItem[];
+  orderId: string;
+  orderDateTime: string;
+  orderStatus: string;
+  totalAmount: number;
+  items: OrderItem[];
 }
 
 @Component({
-    selector: 'app-order-history',
-    templateUrl: './orderhistory.component.html',
-    styleUrls: ['./orderhistory.component.css']
+  selector: 'app-order-history',
+  templateUrl: './orderhistory.component.html',
+  styleUrls: ['./orderhistory.component.css']
 })
 export class OrderhistoryComponent implements OnInit {
-    orders: Order[] = [];
-    isLoading = false;
-    errorMessage = '';
-    ratings: { [orderId: string]: number } = {};
-    constructor(
-        private orderService: OrdersService,
+  orders: Order[] = [];
+  isLoading = false;
+  errorMessage = '';
 
-    ) { }
+  constructor(private orderService: OrdersService) {}
 
-    ngOnInit(): void {
-        this.isLoading = true;
-        this.orderService.getOrders().subscribe({
-            next: (res) => {
-                this.orders = res;
-                this.isLoading = false;
-                console.log(res);
-            },
-            error: () => {
-                this.errorMessage = 'Failed to load orders.';
-                this.isLoading = false;
-            }
-        });
+  ngOnInit(): void {
+    this.loadOrders();
+  }
+
+  loadOrders(): void {
+    const customerId = Number(localStorage.getItem('customerId'));
+    if (!customerId) {
+      this.errorMessage = 'Customer not logged in.';
+      return;
     }
 
-    // toggleOrder(orderId: string): void {
-    //     this.expandedOrderId = this.expandedOrderId === orderId ? null : orderId;
-    // }
+    this.isLoading = true;
+    this.orderService.getCustomerOrders(customerId).subscribe({
+      next: (res) => {
+        this.orders = res;
+        this.isLoading = false;
+      },
+      error: () => {
+        this.errorMessage = 'Failed to load your orders.';
+        this.isLoading = false;
+      }
+    });
+  }
 
-    // enableFeedback(orderId: string): void {
-    //     this.feedbackMode[orderId] = true;
-    //     this.expandedOrderId = orderId;
-    // }
-
-    // rateOrder(orderId: string, rating: number): void {
-    //     this.ratings[orderId] = rating;
-    //     console.log(`Rated order ${orderId} with ${rating} stars`);
-    // }
-
-    // updateFeedback(orderId: string, feedback: string): void {
-    //     this.feedbacks[orderId] = feedback;
-    //     console.log(`Feedback for order ${orderId}: ${feedback}`);
-    // }
-
-
+  cancelOrder(orderId: string): void {
+    if (confirm('Are you sure you want to cancel this order?')) {
+      this.orderService.cancelOrder(Number(orderId)).subscribe({
+        next: () => {
+          alert('Order cancelled successfully.');
+          this.loadOrders(); // Refresh the list
+        },
+        error: () => {
+          alert('Order cancelled. Your amount will be refunded in 7 working days');
+        }
+      });
+    }
+  }
 }
-

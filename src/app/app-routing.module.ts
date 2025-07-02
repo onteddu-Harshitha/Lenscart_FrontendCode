@@ -19,9 +19,10 @@ import { GlassesManagementComponent } from './components/admin/glasses-managemen
 import { FramesManagementComponent } from './components/admin/frames-management/frames-management.component';
 import { OrdersComponent } from './components/orders/orders.component';
 //import { OrdersManagementComponent } from './components/admin/orders-management/orders-management.component';
-import { OrdermanagementComponent } from './components/admin/orders-management/orders-management.component';
+import { OrdersManagementComponent } from './components/admin/orders-management/orders-management.component';
 import { OrderdetailsManagementComponent } from './components/admin/orderdetails/orderdetails.component';
 import { OrderhistoryComponent } from './components/orderhistory/orderhistory.component';
+import { SunglassesManagementComponent } from './components/admin/sunglasses-management/sunglasses-management.component';
 
 
 const routes: Routes = [
@@ -63,9 +64,13 @@ const routes: Routes = [
     component: FramesManagementComponent,
     canActivate: [AdminGuard]
   },
+  {path: 'admin/sunglasses-management',
+    component:SunglassesManagementComponent,
+    canActivate:[AdminGuard]
+  },
   {
     path: 'admin/orders-management',
-    component: OrdermanagementComponent,
+    component: OrdersManagementComponent,
     canActivate: [AdminGuard]
   },
   {

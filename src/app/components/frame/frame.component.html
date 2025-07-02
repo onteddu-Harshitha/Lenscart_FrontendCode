@@ -1,50 +1,55 @@
-<div class="container my-4">
+
+<app-header></app-header>
+<div class="frames-container">
   <div class="row">
 
-    <!-- 🔍 Sidebar Filter -->
-    <div class="col-md-3">
-      <div class="card p-3 shadow-sm">
-        <h5 class="fw-bold">Filter by</h5>
+    <!-- 🧭 Filters Sidebar -->
+    <aside class="col-md-3 filter-card">
+      <h5>Filter By</h5>
 
-        <label class="form-label mt-3">Brand</label>
-        <select class="form-select" [(ngModel)]="selectedBrand" (change)="applyFilters()">
-          <option value="">All</option>
-          <option *ngFor="let brand of brands" [value]="brand">{{ brand }}</option>
-        </select>
+      <label class="form-label">Brand</label>
+      <select class="form-select" [(ngModel)]="selectedBrand" (change)="applyFilters()">
+        <option value="">All Brands</option>
+        <option *ngFor="let brand of brands">{{ brand }}</option>
+      </select>
 
-        <label class="form-label mt-3">Color</label>
-        <select class="form-select" [(ngModel)]="selectedColor" (change)="applyFilters()">
-          <option value="">All</option>
-          <option *ngFor="let color of colors" [value]="color">{{ color }}</option>
-        </select>
+      <label class="form-label">Color</label>
+      <select class="form-select" [(ngModel)]="selectedColor" (change)="applyFilters()">
+        <option value="">All Colors</option>
+        <option *ngFor="let color of colors">{{ color }}</option>
+      </select>
 
-        <label class="form-label mt-3">Price</label>
-        <select class="form-select" [(ngModel)]="selectedPriceRange" (change)="applyFilters()">
-          <option value="">All</option>
-          <option value="below1000">Below ₹1000</option>
-          <option value="1000to2000">₹1000 – ₹2000</option>
-          <option value="above2000">Above ₹2000</option>
-        </select>
-      </div>
-    </div>
+      <label class="form-label">Price</label>
+      <select class="form-select" [(ngModel)]="selectedPriceRange" (change)="applyFilters()">
+        <option value="">All</option>
+        <option value="below1000">Below ₹1000</option>
+        <option value="1000to2000">₹1000 – ₹2000</option>
+        <option value="above2000">Above ₹2000</option>
+      </select>
+    </aside>
 
-    <!-- 🖼️ Frame Cards -->
-    <div class="col-md-9">
-      <div class="frame-container">
+    <!-- 🖼 Frames Grid -->
+    <section class="col-md-9">
+      <div class="frame-grid">
         <div class="frame-card" *ngFor="let frame of filteredFrames">
-          <img [src]="frame.imageUrl || 'assets/frame-placeholder.jpg'" alt="Frame Image" class="frame-img">
-
+          <img [src]="frame.imageUrl || 'assets/frame-placeholder.jpg'" alt="Frame Image" class="frame-img" />
           <h3>{{ frame.frameName }}</h3>
-          <p class="price">₹{{ frame.price }}</p>
           <p class="info">{{ frame.brand }} • {{ frame.color }} • {{ frame.shape }}</p>
-
-          <button (click)="addToCart(frame)" class="add-cart-btn">Add to Cart</button>
+          <p class="price">₹{{ frame.price }}</p>
+          <p class="card-text"><strong>Available:</strong> {{ frame.quantity }}</p>
+<div *ngIf="frame.quantity>0;else Out Of Stock">
+          <button class="btn btn-outline-primary mt-auto" (click)="addToCart(frame)">
+            Add to Cart
+          </button>
+          </div>
+          <ng-template #Out Of Stock>
+<span style="color:red;font-weight: bold;">Out Of Stock</span>
+          </ng-template>
+          
         </div>
       </div>
-    </div>
+
+      <p *ngIf="filteredFrames.length === 0" class="no-results">😔 No matching frames found.</p>
+    </section>
   </div>
-
-  <!-- ✅ Toast Message (outside *ngFor and row) -->
-
-  
 </div>

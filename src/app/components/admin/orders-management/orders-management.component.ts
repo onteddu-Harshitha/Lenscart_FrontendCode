@@ -109,7 +109,7 @@ import { OrderDTO, OrdermanagementService } from 'src/app/services/ordermanageme
   templateUrl: './orders-management.component.html',
   styleUrls: ['./orders-management.component.css']
 })
-export class OrdermanagementComponent implements OnInit {
+export class OrdersManagementComponent implements OnInit {
   orders: OrderDTO[] = [];
   filteredOrders: OrderDTO[] = [];
   customersMap: Map<number, Customer> = new Map();

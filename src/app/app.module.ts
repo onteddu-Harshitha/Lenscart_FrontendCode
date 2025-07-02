@@ -26,9 +26,11 @@ import { SunglassesManagementComponent } from './components/admin/sunglasses-man
 import { FramesManagementComponent } from './components/admin/frames-management/frames-management.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { AdminNavbarComponent } from './components/admin/admin-navbar/admin-navbar.component';
-import { OrdermanagementComponent } from './components/admin/orders-management/orders-management.component';
+import { OrdersManagementComponent } from './components/admin/orders-management/orders-management.component';
 import { OrderdetailsManagementComponent } from './components/admin/orderdetails/orderdetails.component';
 import { OrderhistoryComponent } from './components/orderhistory/orderhistory.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 //import { OrdermanagementComponent } from './components/admin/orders-management/orders-management.component';
@@ -58,7 +60,7 @@ import { OrderhistoryComponent } from './components/orderhistory/orderhistory.co
     FramesManagementComponent,
     OrdersComponent,
     AdminNavbarComponent,
-    OrdermanagementComponent,
+   OrdersManagementComponent,
     OrderdetailsManagementComponent,
     OrderhistoryComponent
     //OrdermanagementComponent
@@ -67,7 +69,9 @@ import { OrderhistoryComponent } from './components/orderhistory/orderhistory.co
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatSnackBarModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

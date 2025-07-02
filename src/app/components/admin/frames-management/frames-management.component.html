@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
   <app-admin-navbar></app-admin-navbar>
   <h2>Frames Management</h2>
 
@@ -46,6 +46,58 @@
         <td>
           <img [src]="frame.imageUrl" alt="{{ frame.frameName }}" width="60" />
         </td>
+        <td>
+          <button (click)="editFrame(frame)">Edit</button>
+          <button (click)="deleteFrame(frame.frameId)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div> -->
+
+
+<app-admin-navbar></app-admin-navbar>
+
+<div class="frame-management-container">
+  <h2>Frames Management</h2>
+
+  <!-- Add/Edit Form -->
+  <form (ngSubmit)="onSubmit()" #frameForm="ngForm" class="frame-form">
+    <input type="text" placeholder="Frame Name" [(ngModel)]="frameData.frameName" name="frameName" required />
+    <input type="text" placeholder="Brand" [(ngModel)]="frameData.brand" name="brand" required />
+    <input type="text" placeholder="Color" [(ngModel)]="frameData.color" name="color" required />
+    <input type="number" placeholder="Price" [(ngModel)]="frameData.price" name="price" required />
+    <input type="text" placeholder="Shape" [(ngModel)]="frameData.shape" name="shape" required />
+    <input type="number" placeholder="Quantity" [(ngModel)]="frameData.quantity" name="quantity" required />
+    <input type="text" placeholder="Image URL" [(ngModel)]="frameData.imageUrl" name="imageUrl" required />
+    <!-- <textarea placeholder="Description" [(ngModel)]="frameData.description" name="description" required></textarea> -->
+
+    <button type="submit">{{ isEditMode ? 'Update' : 'Add' }} Frame</button>
+  </form>
+
+  <!-- Frames Table -->
+  <table class="frames-table">
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Brand</th>
+        <th>Color</th>
+        <th>Price</th>
+        <th>Shape</th>
+        <th>Qty</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let frame of frames">
+        <td><img [src]="frame.imageUrl" alt="Frame" /></td>
+        <td>{{ frame.frameName }}</td>
+        <td>{{ frame.brand }}</td>
+        <td>{{ frame.color }}</td>
+        <td>₹{{ frame.price }}</td>
+        <td>{{ frame.shape }}</td>
+        <td>{{ frame.quantity }}</td>
         <td>
           <button (click)="editFrame(frame)">Edit</button>
           <button (click)="deleteFrame(frame.frameId)">Delete</button>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { Lenses, LensesService } from 'src/app/services/lenses.service';
 
@@ -20,7 +21,7 @@ export class LensesComponent implements OnInit {
   brands: string[] = [];
   colors: string[] = [];
 
-  constructor(private lensesService: LensesService, private cartservice: CartService, private router: Router) { }
+  constructor(private lensesService: LensesService, private cartService: CartService, private router: Router,private authService:AuthService) { }
 
   ngOnInit(): void {
     this.lensesService.getAllLenses().subscribe(data => {
@@ -50,33 +51,37 @@ export class LensesComponent implements OnInit {
   // }
 
   addToCart(lens: Lenses): void {
-    const idFromStorage = localStorage.getItem("customerId");
-    const customerId = idFromStorage ? Number(idFromStorage) : null;
+     const customerId = localStorage.getItem('customerId');
+  const token = this.authService.getToken();
+  console.log('Token:', token);
 
-    if (!customerId) {
-      this.router.navigate(['/login']);
-      return;
-    }
-
-    const cartItem = {
-      customerId: customerId,
-      productId: lens.lensId,   // or lens.name if that's your product identifier
-      quantity: 1,              // default to 1, or allow user to choose
-      price: lens.price
-    };
-
-    console.log('Adding lens to cart:', cartItem);
-
-    this.cartservice.addToCart(cartItem).subscribe(
-      (response) => {
-        console.log('Lens added to cart successfully:', response);
-        // Optionally show a success message or update cart UI
-      },
-      (error) => {
-        console.error('Error adding lens to cart:', error);
-        // Optionally show an error message
-      }
-    );
+  if (!token || token === 'null' || token === 'undefined') {
+    alert('Please login to continue');
+    this.router.navigate(['/login']);
+    return;
   }
+   
+     const cartItem = {
+       customerId: Number(customerId),
+       productId: lens.lensId,
+       quantity: 1
+     };
+   
+     this.cartService.addToCart(cartItem).subscribe({
+       next: (response) => {
+         alert('Item successfully added to cart!');
+       },
+       error: (err) => {
+         console.error('Failed to add item to cart:', err);
+   
+         // 👇 Custom message if backend sends stock issue
+         if (err.error?.message?.toLowerCase().includes('stock')) {
+           alert('❌ Stock not available for this item.');
+         } else {
+           alert('Out of Stock');
+         }
+       }
+     });
+   }
 
 }

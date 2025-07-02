@@ -30,7 +30,7 @@ export class GlassService {
   }
 
   updateGlass(glasses: Glass): Observable<Glass> {
-    return this.http.put<Glass>(`${this.baseUrl}/update-glasses/${glasses.glassId}`, glasses);
+    return this.http.put<Glass>(`${this.baseUrl}${glasses.glassId}`, glasses);
   }
 
   deleteGlass(glassId: string): Observable<void> {

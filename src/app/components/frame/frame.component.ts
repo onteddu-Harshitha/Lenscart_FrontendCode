@@ -21,6 +21,9 @@ export class FramesComponent implements OnInit {
   brands: string[] = [];
   colors: string[] = [];
 
+  toastVisible = false;
+  toastMessage = '';
+
   constructor(
     private frameService: FrameService,
     private cartService: CartService,
@@ -53,45 +56,86 @@ export class FramesComponent implements OnInit {
   }
 
   // addToCart(frame: Frame): void {
-  //   if (!this.authService.isLoggedIn()) {
-  //     alert('Please login to continue');
-  //     this.router.navigate(['/login']);
-  //     return;
-  //   }
+  //   const customerId = localStorage.getItem('customerId');
 
-  //   // Get the logged-in user's ID
-  //   const customerId = this.authService.getLoggedInUserId();
   //   if (!customerId) {
-  //     alert('Customer ID not found.');
+  //     this.router.navigate(['/login']);
+  //     this.showToast('Please login to continue');
   //     return;
   //   }
 
   //   const cartItem = {
-  //     customerId: customerId,
+  //     customerId: Number(customerId),
   //     productId: frame.frameId,
-  //     quantity: 1,  // Adjust quantity as needed
+  //     quantity: 1,
   //   };
 
-  //   // Add to cart
   //   this.cartService.addToCart(cartItem).subscribe({
-  //     next: (response) => {
-  //       console.log('Item added to cart:', response);
-  //       alert('Item successfully added to cart!');
+  //     next: () => {
+  //       this.showToast('Item successfully added to cart!');
+  //       this.cartService.getCart(Number(customerId)).subscribe({
+  //         next: (cart) => {
+  //           console.log('Updated Cart:', cart);
+  //         },
+  //         error: (err) => {
+  //           console.error('Error fetching updated cart:', err);
+  //           this.showToast('Failed to fetch updated cart');
+  //         }
+  //       });
   //     },
   //     error: (err) => {
   //       console.error('Failed to add item to cart:', err);
-  //       if (err.error && err.error.message) {
-  //         alert(`Error: ${err.error.message}`);
-  //       } else {
-  //         alert('An unexpected error occurred while adding the item to the cart.');
-  //       }
+  //       this.showToast('Error adding item to cart');
+  //     }
+  //   });
+  // }
+  //   addToCart(frame: Frame): void {
+  //   const customerId = localStorage.getItem('customerId');
+
+  //   if (!customerId) {
+  //     this.router.navigate(['/login']);
+  //     this.showToast('Please login to continue');
+  //     return;
+  //   }
+
+  //   const cartItem = {
+  //     customerId: Number(customerId),
+  //     productId: frame.frameId,
+  //     quantity: 1,
+  //   };
+
+  //   this.cartService.addToCart(cartItem).subscribe({
+  //     next: () => {
+  //       this.showToast('Item successfully added to cart!');
+  //       this.cartService.getCart(Number(customerId)).subscribe({
+  //         next: (cart) => {
+  //           console.log('Updated Cart:', cart);
+  //         },
+  //         error: (err) => {
+  //           console.error('Error fetching updated cart:', err);
+  //           this.showToast('Failed to fetch updated cart');
+  //         }
+  //       });
   //     },
+  //     error: (err) => {
+  //       console.error('Failed to add item to cart:', err);
+
+  //       if (err.error?.includes('Out of stock') || err.error?.includes('Insufficient stock')) {
+  //         this.showToast('Stock not available');
+  //       } else if (err.error?.includes('already in cart')) {
+  //         this.showToast('Item already in cart');
+  //       } else {
+  //         this.showToast('Error adding item to cart');
+  //       }
+  //     }
   //   });
   // }
   addToCart(frame: Frame): void {
     const customerId = localStorage.getItem('customerId');
+    const token = this.authService.getToken();
+    console.log('Token:', token);
 
-    if (!customerId) {
+    if (!token || token === 'null' || token === 'undefined') {
       alert('Please login to continue');
       this.router.navigate(['/login']);
       return;
@@ -100,34 +144,23 @@ export class FramesComponent implements OnInit {
     const cartItem = {
       customerId: Number(customerId),
       productId: frame.frameId,
-      quantity: 1,
-
+      quantity: 1
     };
 
     this.cartService.addToCart(cartItem).subscribe({
       next: (response) => {
         alert('Item successfully added to cart!');
-        this.cartService.getCart(Number(customerId)).subscribe({
-          next: (cart) => {
-            // Store the updated cart to display in the UI
-            console.log('Updated Cart:', cart);
-            // Store or use the updated cart data as needed
-            // e.g., this.cart = cart; (if you want to store it locally)
-          },
-          error: (err) => {
-            console.error('Error fetching updated cart:', err);
-            alert('Failed to fetch updated cart');
-          }
-        });
       },
-
-
-
       error: (err) => {
         console.error('Failed to add item to cart:', err);
-        alert('Error adding item to cart');
+
+        // 👇 Custom message if backend sends stock issue
+        if (err.error?.message?.toLowerCase().includes('stock')) {
+          alert('❌ Stock not available for this item.');
+        } else {
+          alert('Out of Stock');
+        }
       }
     });
   }
-
 }

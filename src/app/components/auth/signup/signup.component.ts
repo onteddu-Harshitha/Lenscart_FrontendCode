@@ -1,8 +1,9 @@
-// src/app/components/signup/signup.component.ts
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-
+ 
+ 
+ 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -14,9 +15,10 @@ export class SignupComponent {
   password = '';
   phoneNumber = '';
   errorMessage = '';
-
-  constructor(private authService: AuthService, private router: Router) {}
-
+  successMessage = '';
+ 
+  constructor(private authService: AuthService, private router: Router) { }
+ 
   onSignup(): void {
     const customer = {
       name: this.name.trim(),
@@ -24,18 +26,24 @@ export class SignupComponent {
       password: this.password,
       phoneNumber: this.phoneNumber
     };
-
+ 
     // Clear previous error
     this.errorMessage = '';
-
+    this.successMessage = '';
+ 
+ 
     this.authService.registerCustomer(customer).subscribe({
       next: () => {
-        alert('Signup successful!');
-        this.router.navigate(['/login']);
+ 
+        this.successMessage = 'Registration successful! Redirecting to login...';
+ 
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 2000);
       },
       error: (err) => {
         console.error('Signup failed:', err);
-
+ 
         // Handle common error responses
         if (err.status === 409 || (err.error && err.error.includes('Email already exists'))) {
           this.errorMessage = 'Email already exists';
@@ -46,9 +54,10 @@ export class SignupComponent {
         } else {
           this.errorMessage = 'Signup failed. Please try again.';
         }
-
+ 
         // Optional: Display alert
         // alert(this.errorMessage);
+ 
       }
     });
   }

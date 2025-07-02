@@ -1,26 +1,18 @@
-// import { Component } from '@angular/core';
 
-// @Component({
-//   selector: 'app-glasses-management',
-//   templateUrl: './glasses-management.component.html',
-//   styleUrls: ['./glasses-management.component.css']
-// })
-// export class GlassesManagementComponent {
-
-// }
 import { Component, OnInit } from '@angular/core';
-import { GlassService, Glass } from 'src/app/services/glass.service'; // ✅ MATCH THIS
+import { Glass, GlassService } from 'src/app/services/glass.service';
 
 @Component({
-  selector: 'app-glasses-management',
+  selector: 'app-glass-management',
   templateUrl: './glasses-management.component.html',
   styleUrls: ['./glasses-management.component.css']
 })
 export class GlassesManagementComponent implements OnInit {
 
   glasses: Glass[] = [];
-
-  newGlass: Glass = {
+  glassData: Glass = this.resetData();
+  isEditMode = false;
+    newGlass: Glass = {
     glassId: '',
     brand: '',
     glassImage: '',
@@ -34,34 +26,45 @@ export class GlassesManagementComponent implements OnInit {
   constructor(private glassService: GlassService) {}
 
   ngOnInit(): void {
-    this.fetchGlasses();
+    this.loadGlasses();
   }
 
-  fetchGlasses(): void {
-    this.glassService.getAllGlasses().subscribe(data => {
-      this.glasses = data;
-    });
+  loadGlasses(): void {
+    this.glassService.getAllGlasses().subscribe(data => this.glasses = data);
   }
 
-  addGlass(): void {
-    this.glassService.addGlass(this.newGlass).subscribe(() => {
-      this.fetchGlasses();
-      this.resetForm();
-    });
-  }
-
-  deleteGlass(id: string): void {
-    this.glassService.deleteGlass(id).subscribe(() => {
-      this.fetchGlasses();
-    });
+  onSubmit(): void {
+    if (this.isEditMode) {
+      this.glassService.updateGlass(this.glassData).subscribe(() => {
+        this.loadGlasses();
+        this.resetForm();
+      });
+    } else {
+      this.glassService.addGlass(this.glassData).subscribe(() => {
+        this.loadGlasses();
+        this.resetForm();
+      });
+    }
   }
 
   editGlass(glass: Glass): void {
-    this.newGlass = { ...glass };
+    this.glassData = { ...glass };
+    this.isEditMode = true;
+  }
+
+  deleteGlass(glassId: string): void {
+    if (confirm('Are you sure you want to delete this glass?')) {
+      this.glassService.deleteGlass(glassId).subscribe(() => this.loadGlasses());
+    }
   }
 
   resetForm(): void {
-    this.newGlass = {
+    this.glassData = this.resetData();
+    this.isEditMode = false;
+  }
+
+  resetData(): Glass {
+    return {
       glassId: '',
       brand: '',
       glassImage: '',

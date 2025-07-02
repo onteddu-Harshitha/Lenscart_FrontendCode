@@ -1,17 +1,19 @@
 <!-- Sidebar container -->
 <div class="sidebar" [class.closed]="!isVisible">
-  <!-- Toggle Button INSIDE sidebar but on the edge -->
-  <!-- <button class="toggle-btn" (click)="toggleNavbar()">☰</button> -->
-
   <button class="toggle-btn" (click)="toggleNavbar()">
     {{ isVisible ? '✕' : '☰' }}
-    
   </button>
 
-
+  <!-- <div class="logo">
+    <img src="assets/image/logo.png" alt="Logo" />
+    <span>Admin Panel</span>
+  </div> -->
   <div class="logo">
-    <i class="fas fa-cogs"></i> Admin Panel
-  </div>
+  <img src="assets/image/logo.png" alt="Logo" />
+  <div class="panel-label">Admin Panel</div>
+  <hr class="logo-divider" />
+</div>
+
 
   <nav>
     <a routerLink="/admin-dashboard" routerLinkActive="active">
@@ -24,7 +26,7 @@
       <i class="fas fa-box"></i> Glasses
     </a>
     <a routerLink="/admin/lenses-management" routerLinkActive="active">
-      <i class="fas fa-box"></i> Lens
+      <i class="fas fa-box"></i> Lenses
     </a>
     <a routerLink="/admin/sunglasses-management" routerLinkActive="active">
       <i class="fas fa-box"></i> Sunglasses
@@ -36,9 +38,4 @@
       <i class="fas fa-sign-out-alt"></i> Logout
     </a>
   </nav>
-</div>
-
-<!-- Main content -->
-<div class="dashboard-container" [class.full-width]="!isVisible">
-  <!-- Your dashboard content here -->
 </div>

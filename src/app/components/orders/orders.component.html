@@ -1,3 +1,4 @@
+<!-- <app-header></app-header>
 <div class="order-process-container">
 
     <div class="step-indicator">
@@ -58,5 +59,45 @@
             <p>Your order has been confirmed and will be shipped soon!</p>
         </div>
         <button class="finish-btn" (click)="finishOrder()">Finish</button>
+    </div>
+</div> -->
+<app-header></app-header>
+
+<div class="order-steps-wrapper">
+    <div class="step-card" *ngIf="currentStep === 1">
+        <div class="step-header">🧾 Step 1: Order Summary</div>
+        <div *ngFor="let item of cartItems" class="order-item">
+            <img [src]="item.imageUrl" alt="product" />
+            <div>
+                <h4>{{ item.productId }}</h4>
+                <p>₹{{ item.price }} x {{ item.quantity }}</p>
+                <strong>Total: ₹{{ item.quantity * item.price }}</strong>
+            </div>
+        </div>
+        <div class="step-footer">
+            <p><strong>Total: ₹{{ totalAmount }}</strong></p>
+            <textarea [(ngModel)]="address" placeholder="Enter delivery address..."></textarea>>
+            <div *ngIf="errorMessage" class="error-msg">{{ errorMessage }}</div>
+            <button (click)="goToNextStep()">Next ➡️</button>
+        </div>
+    </div>
+
+    <div class="step-card" *ngIf="currentStep === 2">
+        <div class="step-header">💳 Step 2: Payment</div>
+        <p>Pay: ₹{{ totalAmount }}</p>
+        <input type="number" [(ngModel)]="paymentAmount" placeholder="Enter amount" />
+        <div *ngIf="paymentError" class="error-msg">{{ paymentError }}</div>
+        <div class="step-footer">
+            <button class="back-btn" (click)="goToPreviousStep()">⬅️ Back</button>
+            <button [disabled]="paymentAmount !== totalAmount || paymentAmount <= 0" (click)="goToNextStep()">Pay
+                Now</button>
+        </div>
+    </div>
+
+    <div class="step-card" *ngIf="currentStep === 3">
+        <div class="step-header">🎉 Step 3: Confirmation</div>
+        <p>Thank you! Payment of ₹{{ paymentAmount }} received.</p>
+        <p>Your order will be shipped soon.</p>
+        <button (click)="finishOrder()">Finish ✅</button>
     </div>
 </div>

@@ -308,17 +308,23 @@ export class OrdersComponent implements OnInit {
 
   goToPreviousStep(): void {
     if (this.currentStep > 1) {
-      if (this.orderId !== -1 && !this.paymentSuccess) {
-        this.deletePendingOrder();
-      }
-      this.currentStep--;
+        if (this.orderId !== -1 && !this.paymentSuccess) {
+            this.deletePendingOrder();
+            // Display payment incomplete message
+            alert('Payment incomplete. Returning to cart.');
+            // Navigate to the cart page
+            this.router.navigate(['/cart']);
+        } else {
+            this.currentStep--;
+        }
     }
-  }
+}
+
 
   placeOrder(selectedAddress: string): void {
     this.placingOrder = true;
     this.errorMessage = '';
-
+ 
     this.orderService.placeOrder(this.customerId, selectedAddress).subscribe({
       next: (response) => {
         this.orderId = response.orderId;
@@ -329,9 +335,14 @@ export class OrdersComponent implements OnInit {
         this.placingOrder = false;
         this.currentStep = 2;
       },
-      error: () => {
-        this.errorMessage = 'Failed to place order. Please try again later.';
-        this.placingOrder = false;
+      error: (error) => {
+        if(error.status===400&&error.error?.message){
+          this.errorMessage=error.error.message;
+        }else{
+          this.errorMessage = 'Failed to place order. Please try again later.';
+        }
+       
+       
       }
     });
   }

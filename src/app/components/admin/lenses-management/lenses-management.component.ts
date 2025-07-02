@@ -96,6 +96,71 @@
   //     this.selectedLens = null;
   //   }
   // }
+// import { Component, OnInit } from '@angular/core';
+// import { LensesService, Lenses } from 'src/app/services/lenses.service';
+
+// @Component({
+//   selector: 'app-lenses-management',
+//   templateUrl: './lenses-management.component.html',
+//   styleUrls: ['./lenses-management.component.css']
+// })
+// export class LensesManagementComponent implements OnInit {
+
+//   lenses: Lenses[] = [];
+
+//   // This fixes your error
+//   newLens: Lenses = {
+//     lensId: '',
+//     brand: '',
+//     lensImage: '',
+//     shape: '',
+//     colour: '',
+//     price: 0,
+//     quantity: 0
+//   };
+
+//   constructor(private lensesService: LensesService) {}
+
+//   ngOnInit(): void {
+//     this.fetchLenses();
+//   }
+
+//   fetchLenses(): void {
+//     this.lensesService.getAllLenses().subscribe(data => {
+//       this.lenses = data;
+//     });
+//   }
+
+//   addLens(): void {
+//     this.lensesService.addLens(this.newLens).subscribe(() => {
+//       this.fetchLenses();
+//       this.resetForm();
+//     });
+//   }
+
+//   deleteLens(id: string): void {
+//     this.lensesService.deleteLens(id).subscribe(() => {
+//       this.fetchLenses();
+//     });
+//   }
+
+//   editLens(lens: Lenses): void {
+//     this.newLens = { ...lens };
+//   }
+
+//   resetForm(): void {
+//     this.newLens = {
+//       lensId: '',
+//       brand: '',
+//       lensImage: '',
+//       shape: '',
+//       colour: '',
+//       price: 0,
+//       quantity: 0
+//     };
+//   }
+// }
+
 import { Component, OnInit } from '@angular/core';
 import { LensesService, Lenses } from 'src/app/services/lenses.service';
 
@@ -107,9 +172,7 @@ import { LensesService, Lenses } from 'src/app/services/lenses.service';
 export class LensesManagementComponent implements OnInit {
 
   lenses: Lenses[] = [];
-
-  // This fixes your error
-  newLens: Lenses = {
+  lensData: Lenses = {
     lensId: '',
     brand: '',
     lensImage: '',
@@ -119,37 +182,34 @@ export class LensesManagementComponent implements OnInit {
     quantity: 0
   };
 
-  constructor(private lensesService: LensesService) {}
+  constructor(private lensService: LensesService) {}
 
   ngOnInit(): void {
-    this.fetchLenses();
+    this.loadLenses();
   }
 
-  fetchLenses(): void {
-    this.lensesService.getAllLenses().subscribe(data => {
-      this.lenses = data;
-    });
+  loadLenses(): void {
+    this.lensService.getAllLenses().subscribe(data => this.lenses = data);
   }
 
-  addLens(): void {
-    this.lensesService.addLens(this.newLens).subscribe(() => {
-      this.fetchLenses();
+  addOrUpdateLens(): void {
+    if (!this.lensData.lensId) return;
+    this.lensService.addLens(this.lensData).subscribe(() => {
+      this.loadLenses();
       this.resetForm();
     });
   }
 
-  deleteLens(id: string): void {
-    this.lensesService.deleteLens(id).subscribe(() => {
-      this.fetchLenses();
-    });
+  editLens(lens: Lenses): void {
+    this.lensData = { ...lens };
   }
 
-  editLens(lens: Lenses): void {
-    this.newLens = { ...lens };
+  deleteLens(id: string): void {
+    this.lensService.deleteLens(id).subscribe(() => this.loadLenses());
   }
 
   resetForm(): void {
-    this.newLens = {
+    this.lensData = {
       lensId: '',
       brand: '',
       lensImage: '',
@@ -160,4 +220,3 @@ export class LensesManagementComponent implements OnInit {
     };
   }
 }
-
